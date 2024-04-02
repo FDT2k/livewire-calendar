@@ -175,8 +175,7 @@ class LivewireCalendar extends Component
         $firstDayOfGrid = $this->gridStartsAt;
         $lastDayOfGrid = $this->gridEndsAt;
 
-        $numbersOfWeeks = $lastDayOfGrid->diffInWeeks($firstDayOfGrid) + 1;
-        $days = $lastDayOfGrid->diffInDays($firstDayOfGrid) + 1;
+        $days = intval(round($lastDayOfGrid->diffInDays($firstDayOfGrid, true)));
 
         if ($days % 7 != 0) {
             throw new Exception("Livewire Calendar not correctly configured. Check initial inputs.");
@@ -189,9 +188,9 @@ class LivewireCalendar extends Component
             $monthGrid->push($currentDay->clone());
             $currentDay->addDay();
         }
-
         $monthGrid = $monthGrid->chunk(7);
-        if ($numbersOfWeeks != $monthGrid->count()) {
+
+        if ($days / 7 !== $monthGrid->count()) {
             throw new Exception("Livewire Calendar calculated wrong number of weeks. Sorry :(");
         }
 
