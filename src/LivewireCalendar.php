@@ -35,6 +35,7 @@ class LivewireCalendar extends Component
 {
     public $startsAt;
     public $endsAt;
+    public $id;
 
     public $gridStartsAt;
     public $gridEndsAt;
@@ -233,7 +234,6 @@ class LivewireCalendar extends Component
     public function render()
     {
         $events = $this->events();
-
         return view($this->calendarView)
             ->with([
                 'componentId' => $this->id,
